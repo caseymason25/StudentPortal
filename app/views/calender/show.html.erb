@@ -1,0 +1,24 @@
+<div id="events">
+  <h2 id="month">
+    <%= link_to "<<", date: @date.prev_month %>
+    <%= @date.strftime("%B %Y") %>
+    <%= link_to ">>", date: @date.next_month %>
+  </h2>
+  <%= calendar @date do |date| %>
+      <%= date.day %>
+      <% @events_group_by_date.sort.each do |d, events| %>
+
+            <% if d.day === date.day && d.month === date.month && d.year === date.year %>
+                <% for event in events %>
+					<% if event.approved  %>
+						<ul><%= link_to event.title.to_s, event %> </ul>
+					<% end %>
+                <% end %>
+            <% end %>
+
+      <% end %>
+  <% end %>
+</div>
+
+
+

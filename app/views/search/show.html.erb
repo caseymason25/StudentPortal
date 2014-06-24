@@ -1,0 +1,22 @@
+<h1>what</h1>
+
+
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @search.each do |search| %>
+  <tr>
+    <td><%= search.title %></td>
+    <td><%= search.description%></td>
+    <td><%= link_to 'Show', search %></td>
+
+  </tr>
+<% end %>
+</table>

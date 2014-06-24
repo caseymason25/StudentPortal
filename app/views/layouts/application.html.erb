@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Portal</title>
+  <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
+
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+ <%= javascript_include_tag "application", "data-turbolinks-track" => true %> 
+<%= csrf_meta_tags %>
+
+
+
+</head>
+<body>
+
+
+<div class="row kstate-header">
+	<div class="container">
+		<div class="kstate-logo">
+		<div style="float: right; margin: 40px 30px 0px 0px; ">
+		<%= form_tag search_search_index_path, :method => :get do %>
+			<%= text_field_tag :q, params[:q], placeholder: 'Search Events/Courses', id: 'search-bar' %> <%= submit_tag "Search!", id: 'search-button' %>
+		<% end %>
+		</div>
+		</div>
+		
+	</div>
+	
+</div>
+<%= render "/layouts/navbar" %>
+<div class="container">
+	<%= yield %>
+</div>
+
+
+</body>
+</html>

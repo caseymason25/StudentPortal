@@ -1,0 +1,38 @@
+<h1>New Course</h1>
+<div class="col-md-6">
+	<%= form_for @course do |f| %>
+		<div class="form-group">
+			<%= f.label :title %>
+			<%= f.text_field :title, class: "form-control"%>
+		</div>
+		<div class="form-group">
+			<%= f.label :description %>
+			<%= f.text_area :description, class: "form-control" %>
+		</div>
+		<div class="form-group">
+			<%= f.label :Department %>
+			<%= f.text_field :department, class: "form-control" %>
+		</div>
+		<div class="form-group">
+			<%= f.label :Number %>
+			<%= f.text_field :number, class: "form-control" %>
+		</div>
+		<div class="form-group">
+			<%= f.label :hours %>
+			<%= f.text_field :hours, class: "form-control" %>
+		</div>
+		<div class="form-group">
+		<%= f.label :Degree %>
+			<select class="form-control" name="course[course_type_id]">
+				<% @types.each do |type| %>
+					<option value="<%=type.id%>"> <%=type.title %> </option>
+				<% end %>
+			</select>
+		</div>
+		<div class="form-group">
+			<%= f.submit 'Create', class: "btn btn-md btn-primary" %>
+			<%= link_to 'Back', courses_path, :class => "btn btn-default btn-md " %>
+		</div>
+
+	<% end %>
+</div>

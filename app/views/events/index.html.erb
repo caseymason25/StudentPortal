@@ -1,0 +1,137 @@
+<head>
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+</head>
+
+<div id="this-carousel-id" class="carousel slide"><!-- class of slide for animation -->
+  <div class="carousel-inner">
+    <div class="item active event-item"><!-- class of active since it's the first item -->
+      <img src="assets/stateflags.jpg" alt="" />
+	  
+      <div class="carousel-caption">
+		<div class="carousel-event-list">
+			<p>Upcoming Events:</p>
+			<ul>
+			<% @upcoming.first(4).each do |upcoming| %>
+			<% if upcoming.approved %>
+				<li><%= link_to upcoming.title, upcoming, id: 'carousel-link' %></a></li>
+			<% end %>
+			<%end%>
+			</ul>
+		</div>
+      </div>
+    </div>
+	<% @upcoming.each do |upcoming| %>
+	<div class="item event-item">
+<% if upcoming.event_type.id == 4%>
+      <img src="assets/sports.png" alt="" />
+	  <%end%>
+	  <% if upcoming.event_type.id == 5%>
+      <img src="assets/graduate.png" alt="" />
+	  <%end%>
+	  <% if upcoming.event_type.id == 2%>
+      <img src="assets/newlecture.png" alt="" />
+	  <%end%>
+	  <% if upcoming.event_type.id == 6%>
+      <img src="assets/other.png" alt="" />
+	  <%end%>
+	   <% if upcoming.event_type.id == 1%>
+      <img src="assets/club.png" alt="" />
+	  <%end%>
+	  
+	  
+	  
+      <div class="carousel-caption">
+		  <div class="carousel-title">
+			<p><%= link_to upcoming.title, upcoming, id: 'carousel-link' %></p>
+		  </div>
+		  <div class="carousel-date">
+			<p><%= upcoming.date.strftime("%B %-d, at %I:%M%p") %></p>
+		  </div>
+
+        
+      </div>
+    </div>
+	<% end %>
+    
+    
+  </div><!-- /.carousel-inner -->
+  <!--  Next and Previous controls below
+        href values must reference the id for this carousel -->
+    <a class="carousel-control left" href="#this-carousel-id" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#this-carousel-id" data-slide="next">&rsaquo;</a>
+</div><!-- /.carousel -->
+
+   <input type="hidden" name="options" value="all" id="btn-input" />
+   <div class="col-lg-2">
+   <div class="btn-group-vertical" data-toggle="buttons-radio">
+   	<button type="button" data-id="all" data-toggle="button" class="event-button custome btn-block btn btn-primary btn-lg btn-custom">All</button>
+   	<% @types.each do |type| %>
+   		<button type="button" data-id="<%=type.id%>" data-toggle="button" class="event-button custome btn btn-primary btn-lg btn-custom"><%=type.title %></button>
+		<% end %>
+	
+        </div>
+			<% if user_signed_in? %>
+				<%= link_to "New Event", new_event_path(@event), :class => "btn btn-default custome btn-lg " %>
+			<%end%>
+	</div>
+		
+<div class="col-lg-10">
+<table id="events-table" class="table table-striped table-hover">
+
+
+	<thead>
+		<tr>
+			<th> Title </th>
+			<th> Date </th>
+			<th> Location </th>
+			<% if user_signed_in? && current_user.admin %>
+			<th> Status </th>
+			<%end %>
+			<th> Host </th>
+			<th> Event Type </th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	
+	<% @events.each do |event| %>
+
+
+		<tr data-event-type-id="<%=event.event_type.id%>">
+			<td> <%= event.title %> </td>
+			<td> <%= event.date.strftime("%B %-d, at %I:%M%p")  %> </td>
+			<td> <%= link_to event.location, maps_path %> </td>
+			<% if user_signed_in? && current_user.admin %>
+			<td> 
+				<% if event.approved %>
+					<span class="badge approved"> Approved </span>
+				<% else %>
+					<span class="badge pending"> Pending </span> 
+				<% end %>
+			</td>
+			<% end %>
+			<td> <%= event.host %> </td>
+			<td class="event-type">
+				<% if event.event_type %>
+					<%= event.event_type.title %> 
+				<% end %>
+			</td>
+
+			<% if user_signed_in? %>
+			<td><% if current_user.admin %> <%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_event_path(event) %> <% end %></td>
+			<td><% if current_user.admin %> <%= link_to '<i class="fa fa-eraser"></i>'.html_safe, event, method: :delete, data: { confirm: 'Are you sure?' } %> <% end %></td>
+			<% end %>
+			<td><%= link_to event do %><button type="button" class="popup btn btn-xs btn-default" data-container="body" data-toggle="popover" data-placement="right"
+			data-content="<p>Title: <%= event.title %></p><p>Description: <%= event.description %></p><p>Date: <%= event.date.strftime("%B %-d, at %I:%M%p") %></p><p>Location: <%= event.location %></p><% if event.user %><p>Created by:<%= event.user.email %></p><% end %><p>Host:<%= event.host %></p><% if event.event_type %><p>Event Type:<%= event.event_type.title %></p> <% end %>">
+			<i class="fa fa-info"></i>
+			</button><% end %></td>
+			
+			
+		</tr>
+		<% end %>
+
+
+</table>
+</div>
+

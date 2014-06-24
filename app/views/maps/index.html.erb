@@ -1,0 +1,188 @@
+
+<h1>Campus Map</h1>
+<hr>
+<style type="text/css">
+
+#main{ width:100%;}
+#top{ width:100%; float:left; overflow:hidden;}
+#left{ width:20%; float:left; overflow:hidden;}
+#mid{ width:2%; float:left; overflow:hidden;}
+#right{ width:78%; float:left; display:inline; overflow:hidden;}
+</style>
+
+<div id="main">
+<div id= "top"><h3>Click on the following markers to locate buildings:<h3></div>
+
+<div id="left">
+ <table>
+<tr>
+      <td><input type="image" id="blue" src="/assets/blue.jpg" width= '25' height='30' border="0">
+      College of Engineering</td>
+</tr>
+<tr>
+<td> &nbsp </td>
+</tr>
+<tr>
+      <td><input type="image" id="red" src="/assets/red.jpg" width= '25' height='30' border="0">
+      CIS Nichols Hall </td>
+ </tr>
+<tr>
+<td> &nbsp </td>
+</tr>
+<tr>
+      <td><input type="image" id="purple" src="/assets/purple.jpg" width= '25' height='30' border="0">
+      Hale Library </td>
+ </tr>
+<tr>
+<td> &nbsp </td>
+</tr>
+<tr>
+      <td><input type="image" id="pink" src="/assets/pink.jpg" width= '25' height='30' border="0">
+      Student Union </td>
+ </tr>
+<tr>
+<td> &nbsp </td>
+</tr>
+<tr>
+     <td><input type="image" id="yellow" src="/assets/yellow.jpg" width= '25' height='30' border="0">
+      Derby Dining Center </td>
+ </tr>
+<tr>
+<td> &nbsp </td>
+</tr>
+<tr>
+   <td><input type="image" id="green" src="/assets/darkgreen.jpg" width='25' height='30' border="0" >
+      Recreation Center</td>
+
+    </tr>
+
+</table>
+
+</div>
+
+<div id="mid"></div>
+
+
+    <div id="right">
+    <div id='map' class='dark'></div>
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="//rawgithub.com/domoritz/leaflet-locatecontrol/gh-pages/src/L.Control.Locate.css" />
+<script src="//rawgithub.com/domoritz/leaflet-locatecontrol/gh-pages/src/L.Control.Locate.js" ></script>
+
+
+<script type='text/javascript'>
+
+var map = L.mapbox.map('map', 'examples.map-i86nkdio').setView([39.189608, -96.581715], 16);
+
+var myLayer = L.mapbox.featureLayer().addTo(map);
+
+// The GeoJSON representing the two point features
+var geoJson = {
+    type: 'FeatureCollection',
+    features: [{
+        type: 'Feature',
+        properties: {
+            title: 'Hale',
+            'marker-color': '#609',
+            'marker-size': 'large',
+        },
+        geometry: {
+            type: 'Point',
+            coordinates: [-96.5805639, 39.1904972]        }
+    },
+    {
+        type: 'Feature',
+        properties: {
+            title: 'Student Union',
+            'marker-color': '#f0f',
+            'marker-size': 'large',
+        },
+        geometry: {
+            type: 'Point',
+            coordinates: [-96.5825387, 39.1882175]         }
+      },
+      {
+         type: 'Feature',
+        properties: {
+            title: 'Recreation Center',
+            'marker-color': '#0f0',
+            'marker-size': 'large',
+        },
+        geometry: {
+            type: 'Point',
+            coordinates: [-96.5885993, 39.2003665]             }
+       },
+
+       {
+        type: 'Feature',
+        properties: {
+            title: 'Nicholas Hall',
+            'marker-color': '#f00',
+            'marker-size': 'large',
+        },
+        geometry: {
+            type: 'Point',
+            coordinates: [-96.5808059, 39.1865319]         }
+      },
+
+       {
+        type: 'Feature',
+        properties: {
+            title: 'Derby Dining Center',
+            'marker-color': '#ff0',
+            'marker-size': 'large',
+        },
+        geometry: {
+            type: 'Point',
+            coordinates: [-96.577638, 39.194148]       }
+      },
+
+        {
+        type: 'Feature',
+        properties: {
+            title: 'College of Engineering',
+            'marker-color': '#05f',
+            'marker-size': 'large',
+        },
+        geometry: {
+            type: 'Point',
+            coordinates: [-96.5842059, 39.1904307]        }
+
+    }]
+};
+
+
+
+// Pass features and a custom factory function to the map
+myLayer.setGeoJSON(geoJson);
+
+myLayer.on('click', function(e) {
+    e.layer.unbindPopup();
+
+});
+
+$("#blue").on('click', function() {
+        map.setView([39.1904307, -96.5842059], 17);
+});
+$("#red").on('click', function() {
+        map.setView([39.1865319, -96.5808059], 17);
+});
+$("#purple").on('click', function() {
+        map.setView([39.1904972, -96.5805639], 17);
+});
+$("#pink").on('click', function() {
+        map.setView([ 39.1882175, -96.5825387], 17);
+});
+$("#yellow").on('click', function() {
+        map.setView([39.1932451, -96.5780583], 17);
+});
+$("#green").on('click', function() {
+        map.setView([39.2003665, -96.5885993], 15);
+});
+
+
+
+</script>

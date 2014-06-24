@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Portal</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+
+
+<div class="row kstate-header">
+	<div class="container">
+		<div class="kstate-logo">
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li class="active"><a href="#">Dashboard</a></li>
+        <li><a href="#">Events</a></li>
+        <li><a href="#">Courses</a></li>
+      </ul>
+    </div>
+    <div class="col-sm-9 col-md-10  main">
+        <%= yield %>
+    </div>
+ </div>
+
+
+
+
+
+
+</body>
+</html>

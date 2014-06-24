@@ -1,0 +1,35 @@
+
+
+<p>
+  <strong>Title:</strong>
+  <%= @course.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @course.description %>
+</p>
+
+<p>
+  <strong>Department:</strong>
+  <%= @course.department %>
+</p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @course.number %>
+</p>
+
+<p>
+  <strong>Hours:</strong>
+  <%= @course.hours %>
+</p>
+
+<p>
+  <strong>Degree:</strong>
+  <%= @course.course_type.title %>
+</p>
+
+<% if user_signed_in? && current_user.admin %> <%= link_to 'Edit', edit_course_path(@course), :class => "btn btn-default btn-md " %> <% end %>
+<%= link_to_function 'Back', "history.back()", :class => "btn btn-default btn-md " %>
+<%= link_to 'Courses', courses_path, :class => "btn btn-default btn-md " %>
